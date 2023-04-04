@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Button,Menu,Typography,Avatar } from 'antd';
 import {Link} from 'react-router-dom';
-import{HomeOutlined,MoneyCollectOutlined,BulbOutlined,FundOutlined,MenuOutlined} from '@ant-design/icons';
+import{HomeOutlined,MoneyCollectOutlined,BulbOutlined,FundOutlined,MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import icon from '../images/cryptocurrency.png';
 const Navbar = () => {
+    const [activeMenu,setActiveMenu] = useState(true);
+
   return (<div className='nav-container'>
       <div className='logo-container'>
           <Avatar src={icon} size='large'/>
@@ -11,10 +13,16 @@ const Navbar = () => {
               
               <Link to='/'>Cryptoverse</Link>
           </Typography.Title>
-          {/* <Button className='menu-control-container'>
-
-          </Button> */}
+          <Button className='menu-control-container' 
+            onClick={()=>setActiveMenu(!activeMenu)}>
+          
+                {
+                    activeMenu ? <CloseOutlined onClick={()=>setActiveMenu(false)}/> : <MenuOutlined onClick={()=>setActiveMenu(true)}/>
+                }
+          </Button>
       </div>
+      {
+            activeMenu && ( 
       <Menu theme='dark'>
           <Menu.Item icon ={<HomeOutlined/>}>
               <Link to="/">Home</Link>
@@ -30,6 +38,8 @@ const Navbar = () => {
           </Menu.Item>
           
       </Menu>
+            )
+      }
   </div>);
 };
 
